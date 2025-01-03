@@ -13,10 +13,21 @@ import { useState } from "react";
 import { defaultExtensions } from "./extensions";
 import { handleCommandNavigation } from "novel/extensions";
 import { slashCommand, suggestionItems } from "./slash";
+import { useDebouncedCallback } from "use-debounce";
+import { EditorEvents } from "@tiptap/react";
 
 export const Novel = () => {
   const [content, setContent] = useState<JSONContent | undefined>(undefined);
   const extensions = [...defaultExtensions, slashCommand];
+
+  const debouncedUpdates = useDebouncedCallback(
+    async ({ editor }: EditorEvents["update"]) => {
+      const json = editor.getJSON();
+      setContent(json);
+    },
+    500,
+  );
+
   return (
     <EditorRoot>
       <EditorContent
@@ -30,10 +41,7 @@ export const Novel = () => {
         }}
         extensions={extensions}
         initialContent={content}
-        onUpdate={({ editor }) => {
-          const json = editor.getJSON();
-          setContent(json);
-        }}
+        onUpdate={debouncedUpdates}
         immediatelyRender={false}
       >
         <EditorCommand className="border-muted bg-background z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border px-1 py-2 shadow-md transition-all">
