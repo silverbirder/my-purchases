@@ -25,8 +25,24 @@ import {
 import { handleImageDrop, handleImagePaste } from "novel/plugins";
 import { uploadFn } from "./image-upload";
 
-export const Novel = () => {
-  const [content, setContent] = useState<JSONContent | undefined>(undefined);
+interface NovelProps {
+  initialContent?: string;
+}
+
+export const Novel = ({ initialContent = "" }: NovelProps) => {
+  const [content, setContent] = useState<JSONContent | undefined>(
+    initialContent
+      ? {
+          type: "doc",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: initialContent }],
+            },
+          ],
+        }
+      : undefined,
+  );
   const [openNode, setOpenNode] = useState(false);
   const [openLink, setOpenLink] = useState(false);
   const [openColor, setOpenColor] = useState(false);
@@ -48,7 +64,7 @@ export const Novel = () => {
             keydown: (_view, event) => handleCommandNavigation(event),
           },
           attributes: {
-            class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
+            class: `prose prose-sm dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full min-h-[150px] px-4 py-3 bg-slate-50`,
           },
           handlePaste: (view, event) => handleImagePaste(view, event, uploadFn),
           handleDrop: (view, event, _slice, moved) =>
@@ -57,13 +73,12 @@ export const Novel = () => {
         extensions={extensions}
         initialContent={content}
         onUpdate={debouncedUpdates}
-        immediatelyRender={false}
       >
         <EditorBubble
           tippyOptions={{
             placement: "top",
           }}
-          className="border-muted bg-background flex w-fit max-w-[90vw] overflow-hidden rounded border shadow-xl"
+          className="border-muted bg-background flex w-fit max-w-[90vw] overflow-hidden rounded-lg border shadow-xl"
         >
           <NodeSelector open={openNode} onOpenChange={setOpenNode} />
           <LinkSelector open={openLink} onOpenChange={setOpenLink} />
@@ -72,7 +87,7 @@ export const Novel = () => {
         </EditorBubble>
         <EditorCommand className="border-muted bg-background z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border px-1 py-2 shadow-md transition-all">
           <EditorCommandEmpty className="text-muted-foreground px-2">
-            No results
+            結果がありません
           </EditorCommandEmpty>
           <EditorCommandList>
             {suggestionItems.map((item) => (
