@@ -7,6 +7,10 @@ import {
   StarterKit,
   Placeholder,
   TiptapImage,
+  TiptapUnderline,
+  Color,
+  TextStyle,
+  HighlightExtension,
 } from "novel/extensions";
 
 import { cx } from "class-variance-authority";
@@ -123,4 +127,11 @@ export const defaultExtensions = [
   tiptapImage,
   globalDragHandle,
   autoJoiner,
+  // https://github.com/steven-tey/novel/issues/435
+  TiptapUnderline,
+  Color,
+  TextStyle,
+  HighlightExtension.configure({
+    multicolor: true,
+  }),
 ];
