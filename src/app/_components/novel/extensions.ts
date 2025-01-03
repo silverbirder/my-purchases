@@ -11,6 +11,8 @@ import {
 
 import { cx } from "class-variance-authority";
 import { UploadImagesPlugin } from "novel/plugins";
+import GlobalDragHandle from "tiptap-extension-global-drag-handle";
+import AutoJoiner from "tiptap-extension-auto-joiner";
 
 // You can overwrite the placeholder with your own configuration
 const placeholder = Placeholder;
@@ -82,17 +84,30 @@ const starterKit = StarterKit.configure({
 
 const tiptapImage = TiptapImage.extend({
   addProseMirrorPlugins() {
-      return [
-          UploadImagesPlugin({
-              imageClass: cx("opacity-40 rounded-lg border border-stone-200"),
-          }),
-      ];
+    return [
+      UploadImagesPlugin({
+        imageClass: cx("opacity-40 rounded-lg border border-stone-200"),
+      }),
+    ];
   },
-  }).configure({
+}).configure({
   allowBase64: true,
   HTMLAttributes: {
-      class: cx("rounded-lg border border-muted"),
+    class: cx("rounded-lg border border-muted"),
   },
+});
+
+const globalDragHandle = GlobalDragHandle.configure({
+  dragHandleWidth: 20, // default
+  // The scrollTreshold specifies how close the user must drag an element to the edge of the lower/upper screen for automatic
+  // scrolling to take place. For example, scrollTreshold = 100 means that scrolling starts automatically when the user drags an
+  // element to a position that is max. 99px away from the edge of the screen
+  // You can set this to 0 to prevent auto scrolling caused by this extension
+  scrollTreshold: 100, // default
+});
+
+const autoJoiner = AutoJoiner.configure({
+  elementsToJoin: ["bulletList", "orderedList"], // default
 });
 
 export const defaultExtensions = [
@@ -104,4 +119,6 @@ export const defaultExtensions = [
   taskItem,
   horizontalRule,
   tiptapImage,
+  globalDragHandle,
+  autoJoiner,
 ];
