@@ -24,6 +24,7 @@ import {
 } from "./bubble";
 import { handleImageDrop, handleImagePaste } from "novel/plugins";
 import { uploadFn } from "./image-upload";
+import "./drag.css";
 
 interface NovelProps {
   initialContent?: string;
