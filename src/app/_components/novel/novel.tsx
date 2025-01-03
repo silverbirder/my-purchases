@@ -22,6 +22,8 @@ import {
   NodeSelector,
   TextButtons,
 } from "./bubble";
+import { handleImageDrop, handleImagePaste } from "novel/plugins";
+import { uploadFn } from "./image-upload";
 
 export const Novel = () => {
   const [content, setContent] = useState<JSONContent | undefined>(undefined);
@@ -48,6 +50,9 @@ export const Novel = () => {
           attributes: {
             class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
           },
+          handlePaste: (view, event) => handleImagePaste(view, event, uploadFn),
+          handleDrop: (view, event, _slice, moved) =>
+            handleImageDrop(view, event, moved, uploadFn),
         }}
         extensions={extensions}
         initialContent={content}

@@ -6,9 +6,11 @@ import {
   HorizontalRule,
   StarterKit,
   Placeholder,
+  TiptapImage,
 } from "novel/extensions";
 
 import { cx } from "class-variance-authority";
+import { UploadImagesPlugin } from "novel/plugins";
 
 // You can overwrite the placeholder with your own configuration
 const placeholder = Placeholder;
@@ -78,6 +80,21 @@ const starterKit = StarterKit.configure({
   gapcursor: false,
 });
 
+const tiptapImage = TiptapImage.extend({
+  addProseMirrorPlugins() {
+      return [
+          UploadImagesPlugin({
+              imageClass: cx("opacity-40 rounded-lg border border-stone-200"),
+          }),
+      ];
+  },
+  }).configure({
+  allowBase64: true,
+  HTMLAttributes: {
+      class: cx("rounded-lg border border-muted"),
+  },
+});
+
 export const defaultExtensions = [
   starterKit,
   placeholder,
@@ -86,4 +103,5 @@ export const defaultExtensions = [
   taskList,
   taskItem,
   horizontalRule,
+  tiptapImage,
 ];
