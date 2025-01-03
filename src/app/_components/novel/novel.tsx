@@ -74,6 +74,8 @@ export const Novel = ({ initialContent = "" }: NovelProps) => {
         extensions={extensions}
         initialContent={content}
         onUpdate={debouncedUpdates}
+        // Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
+        immediatelyRender={false}
       >
         <EditorBubble
           tippyOptions={{

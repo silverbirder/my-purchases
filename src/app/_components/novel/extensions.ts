@@ -83,6 +83,8 @@ const starterKit = StarterKit.configure({
 });
 
 const tiptapImage = TiptapImage.extend({
+  // [tiptap warn]: Duplicate extension names found: ['image']
+  name: "tiptapImage",
   addProseMirrorPlugins() {
     return [
       UploadImagesPlugin({
