@@ -8,6 +8,7 @@ import {
   EditorCommandEmpty,
   EditorCommandItem,
   EditorCommandList,
+  EditorBubble,
 } from "novel";
 import { useState } from "react";
 import { defaultExtensions } from "./extensions";
@@ -15,9 +16,11 @@ import { handleCommandNavigation } from "novel/extensions";
 import { slashCommand, suggestionItems } from "./slash";
 import { useDebouncedCallback } from "use-debounce";
 import { EditorEvents } from "@tiptap/react";
+import { NodeSelector } from "./bubble";
 
 export const Novel = () => {
   const [content, setContent] = useState<JSONContent | undefined>(undefined);
+  const [openNode, setOpenNode] = useState(false);
   const extensions = [...defaultExtensions, slashCommand];
 
   const debouncedUpdates = useDebouncedCallback(
@@ -44,6 +47,14 @@ export const Novel = () => {
         onUpdate={debouncedUpdates}
         immediatelyRender={false}
       >
+        <EditorBubble
+          tippyOptions={{
+            placement: "top",
+          }}
+          className="border-muted bg-background flex w-fit max-w-[90vw] overflow-hidden rounded border shadow-xl"
+        >
+          <NodeSelector open={openNode} onOpenChange={setOpenNode} />
+        </EditorBubble>
         <EditorCommand className="border-muted bg-background z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border px-1 py-2 shadow-md transition-all">
           <EditorCommandEmpty className="text-muted-foreground px-2">
             No results
