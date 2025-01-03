@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  JSONContent,
+  type JSONContent,
   EditorRoot,
   EditorContent,
   EditorCommand,
@@ -15,12 +15,19 @@ import { defaultExtensions } from "./extensions";
 import { handleCommandNavigation } from "novel/extensions";
 import { slashCommand, suggestionItems } from "./slash";
 import { useDebouncedCallback } from "use-debounce";
-import { EditorEvents } from "@tiptap/react";
-import { NodeSelector } from "./bubble";
+import { type EditorEvents } from "@tiptap/react";
+import {
+  ColorSelector,
+  LinkSelector,
+  NodeSelector,
+  TextButtons,
+} from "./bubble";
 
 export const Novel = () => {
   const [content, setContent] = useState<JSONContent | undefined>(undefined);
   const [openNode, setOpenNode] = useState(false);
+  const [openLink, setOpenLink] = useState(false);
+  const [openColor, setOpenColor] = useState(false);
   const extensions = [...defaultExtensions, slashCommand];
 
   const debouncedUpdates = useDebouncedCallback(
@@ -54,6 +61,9 @@ export const Novel = () => {
           className="border-muted bg-background flex w-fit max-w-[90vw] overflow-hidden rounded border shadow-xl"
         >
           <NodeSelector open={openNode} onOpenChange={setOpenNode} />
+          <LinkSelector open={openLink} onOpenChange={setOpenLink} />
+          <TextButtons />
+          <ColorSelector open={openColor} onOpenChange={setOpenColor} />
         </EditorBubble>
         <EditorCommand className="border-muted bg-background z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border px-1 py-2 shadow-md transition-all">
           <EditorCommandEmpty className="text-muted-foreground px-2">
