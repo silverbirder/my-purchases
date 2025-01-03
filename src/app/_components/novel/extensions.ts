@@ -16,13 +16,13 @@ import AutoJoiner from "tiptap-extension-auto-joiner";
 
 // You can overwrite the placeholder with your own configuration
 const placeholder = Placeholder;
-// const tiptapLink = TiptapLink.configure({
-//   HTMLAttributes: {
-//     class: cx(
-//       "text-muted-foreground underline underline-offset-[3px] hover:text-primary transition-colors cursor-pointer",
-//     ),
-//   },
-// });
+const tiptapLink = TiptapLink.configure({
+  HTMLAttributes: {
+    class: cx(
+      "text-muted-foreground underline underline-offset-[3px] hover:text-primary transition-colors cursor-pointer",
+    ),
+  },
+});
 
 const taskList = TaskList.configure({
   HTMLAttributes: {
@@ -115,7 +115,7 @@ const autoJoiner = AutoJoiner.configure({
 export const defaultExtensions = [
   starterKit,
   placeholder,
-  TiptapLink,
+  tiptapLink,
   UpdatedImage,
   taskList,
   taskItem,
