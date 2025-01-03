@@ -23,7 +23,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja" className={noto.className}>
-      <body className="prose lg:prose-xl">
+      <body className="prose lg:prose-xl max-w-none">
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>

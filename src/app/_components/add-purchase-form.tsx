@@ -21,7 +21,7 @@ export function AddPurchaseForm({ onAdd }: AddPurchaseFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 flex items-center space-x-2">
+    <form onSubmit={handleSubmit} className="flex items-center space-x-2">
       <Input
         value={name}
         onChange={(e) => setName(e.target.value)}

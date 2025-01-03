@@ -10,17 +10,20 @@ interface PurchaseItemCardProps {
   initialNotes: string;
 }
 
-export function PurchaseItemCard({ initialName, initialNotes }: PurchaseItemCardProps) {
+export function PurchaseItemCard({
+  initialName,
+  initialNotes,
+}: PurchaseItemCardProps) {
   const [name, setName] = useState(initialName);
 
   return (
-    <Card className="mb-4 w-full">
-      <CardHeader className="pb-2">
+    <Card className="w-full">
+      <CardHeader>
         <CardTitle>
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="border-none text-xl font-bold focus:ring-0"
+            className="border-none"
             placeholder="アイテム名"
           />
         </CardTitle>

@@ -65,7 +65,7 @@ export const Novel = ({ initialContent = "" }: NovelProps) => {
             keydown: (_view, event) => handleCommandNavigation(event),
           },
           attributes: {
-            class: `prose prose-sm dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full min-h-[150px] px-4 py-3 bg-slate-50`,
+            class: `focus:outline-none min-h-[150px] px-6`,
           },
           handlePaste: (view, event) => handleImagePaste(view, event, uploadFn),
           handleDrop: (view, event, _slice, moved) =>
