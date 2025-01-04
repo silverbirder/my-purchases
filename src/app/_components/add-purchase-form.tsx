@@ -21,16 +21,19 @@ export function AddPurchaseForm({ onAdd }: AddPurchaseFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center space-x-2">
-      <Input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="新しいアイテムを追加"
-        className="flex-grow"
-      />
-      <Button type="submit" size="icon">
-        <PlusIcon className="h-4 w-4" />
-      </Button>
-    </form>
+    <div className="space-y-2">
+      <label className="text-sm font-medium">かったものを追加</label>
+      <form onSubmit={handleSubmit} className="flex items-center space-x-2">
+        <Input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="品名を入力"
+          className="flex-grow"
+        />
+        <Button type="submit" variant="secondary" size="icon">
+          <PlusIcon className="h-4 w-4" />
+        </Button>
+      </form>
+    </div>
   );
 }
